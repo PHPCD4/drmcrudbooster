@@ -35,7 +35,7 @@ class CmsEmailTemplates extends Seeder
                 'content' => '<p>Hi,</p><p>Someone requested forgot password, here is your new password : </p><p>[password]</p><p><br></p><p>--</p><p>Regards,</p><p>Admin</p>',
                 'description' => '[password]',
                 'from_name' => 'System',
-                'from_email' => 'system@crudbooster.com',
+                'from_email' => 'dev@crudbooster.com',
                 'cc_email' => null,
             ]);
     }
@@ -85,7 +85,7 @@ class Cms_settingsSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'name' => 'email_sender',
                 'label' => 'Email Sender',
-                'content' => 'support@crudbooster.com',
+                'content' => 'dev@crudbooster.com',
                 'content_input_type' => 'text',
                 'group_setting' => trans('crudbooster.email_setting'),
                 'dataenum' => null,
@@ -282,10 +282,10 @@ class Cms_privilegesSeeder extends Seeder
     public function run()
     {
 
-        if (DB::table('cms_privileges')->where('name', 'Super Administrator')->count() == 0) {
+        if (DB::table('cms_privileges')->where('name', 'Developer')->count() == 0) {
             DB::table('cms_privileges')->insert([
                 'created_at' => date('Y-m-d H:i:s'),
-                'name' => 'Super Administrator',
+                'name' => 'Developer',
                 'is_superadmin' => 1,
                 'theme_color' => 'skin-red',
             ]);
@@ -298,9 +298,9 @@ class Cms_modulsSeeder extends Seeder
     public function run()
     {
 
-        /* 
+        /*
             1 = Public
-            2 = Setting        
+            2 = Setting
         */
 
         $data = [
@@ -446,8 +446,8 @@ class Cms_usersSeeder extends Seeder
             $password = \Hash::make('123456');
             $cms_users = DB::table('cms_users')->insert([
                 'created_at' => date('Y-m-d H:i:s'),
-                'name' => 'Super Admin',
-                'email' => 'admin@crudbooster.com',
+                'name' => 'Developer',
+                'email' => 'dev@crudbooster.com',
                 'password' => $password,
                 'id_cms_privileges' => 1,
                 'status' => 'Active',
@@ -455,4 +455,3 @@ class Cms_usersSeeder extends Seeder
         }
     }
 }
-
