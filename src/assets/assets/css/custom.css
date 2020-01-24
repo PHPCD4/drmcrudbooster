@@ -1,0 +1,492 @@
+/* Hello Febian */
+.clr{
+  color: black;
+  text-transform: capitalize;
+  font-size: 20px;
+  margin-top: 2px; 
+}
+.thclr{
+  color: #635959;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.wid{
+  width: 120px;
+}
+
+#canvas-holder{
+  width: 90%;
+  margin-top: 0px;
+
+}
+.csv-label{
+  font-size:17px;
+  font-family: Times New Roman;
+  text-transform:capitalize;
+}
+.csv-input{
+ width: 300px;
+ height:40px;
+ border: 2px solid #B0C4DE;
+ border-radius: 8px;
+}
+.canvas-bg{
+  background: white;
+}
+.AbsatzkanÃ¤le{
+  padding-bottom: 0px;
+}
+
+.chart {
+  width: 100%;
+}
+
+#bar-chart{
+  min-height: 100%;
+}
+
+
+
+.material-switch > input[type="checkbox"] {
+  display: none;
+}
+
+.material-switch > label {
+  cursor: pointer;
+  height: 0px;
+  position: relative;
+  width: 40px;
+}
+
+.material-switch > label::before {
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  content: '';
+  height: 16px;
+  margin-top: -8px;
+  position:absolute;
+  opacity: 0.3;
+  transition: all 0.4s ease-in-out;
+  width: 40px;
+}
+.material-switch > label::after {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 24px;
+  left: -4px;
+  margin-top: -8px;
+  position: absolute;
+  top: -4px;
+  transition: all 0.3s ease-in-out;
+  width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+  background: inherit;
+  opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+  background: inherit;
+  left: 20px;
+}
+
+
+
+#reportingDatatable_wrapper {
+  position: relative;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  border-top: 5px solid #00c0ef;
+}
+
+
+
+
+.nopadding {
+  padding: 0 !important;
+}
+
+
+button.btn-dark {
+  background-color: #cacaca;
+  border: none;
+  border-radius: 5px !important;
+}
+
+
+
+
+.import-csv-wrapper {
+  position: relative;
+  max-width: 360px;
+  margin: 25px;
+}
+
+
+
+
+
+
+.product-wrapperm {
+  position: relative;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.gambio-gorilla-import {
+  position: relative;
+  border: 1px solid #676761;
+  border-left: none;
+  border-right: none;
+  margin: 25px auto;
+}
+
+.gambio-gorilla-import ul {
+  position: relative;
+  padding: 0;
+  list-style-type: none;
+  margin-bottom: 0px;
+}
+
+.gambio-gorilla-import ul li {
+  display: inline-block;
+  margin: 0px 5px -1px;
+  padding: 5px;
+}
+
+.gambio-gorilla-import ul li.active,.gambio-gorilla-import ul li:hover {
+  border-bottom: 2px solid #f39c12;
+}
+.gambio-gorilla-import ul li:hover a,
+.gambio-gorilla-import ul li.active a {
+  color: #f39c12;
+}
+
+.gambio-gorilla-import ul li a {
+  color: #000;
+  font-size: 16px;
+}
+
+
+
+.product-wrapperm ul.nav.nav-tabs {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #dce1ef;
+  margin: 25px auto;
+}
+
+.product-wrapperm ul.nav.nav-tabs:before {
+  position: absolute;
+  content: '';
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  top: 20px;
+  left: 20px;
+  border: 1px solid #f39c12;
+  border-radius: 5px;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li.active {
+  border: none;
+  background-color: #fff;
+  margin: 1px 0px;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li.active a {
+  background-color: #f39c12;
+  border: none;
+  color: #fff;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li {
+  text-align: center;
+  color: #f39c12;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #f39c12;
+  display: block;
+  margin: 0px 0px;
+  width: 20%;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li a {
+  margin: 0;
+  padding: 5px 25px;
+  position: relative;
+  color: #f39c12;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li:not(:last-child) a:before {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: -1px;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 8px solid;
+  z-index: 1;
+}
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li:not(:last-child) a:after {
+  content: '';
+  position: absolute;
+  left: calc(100% - 1px);
+  top: 0px;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 7px solid #fff;
+  z-index: 2;
+}
+
+.product-wrapperm .nav-tabs-custom>.nav-tabs>li.active:not(:last-child) a:after {
+  border-left: 7px solid #f39c12;
+}
+
+
+
+/*.product-wrapperm button.btn {*/
+/*  background-color: #f39c12;*/
+/*  border-color: #f39c12;*/
+/*  color: #fff;*/
+/*}*/
+
+
+.fieldsynctab .form-group .btn {
+  margin: 15px auto 0px;
+  float: right;
+  margin-right: 15px;
+  min-width: 100px;
+}
+
+
+.pricecalculationTab .form-group button.btn {
+  margin: 15px auto 0px;
+  float: right;
+  margin-right: 15px;
+  min-width: 100px;
+}
+
+
+
+
+.gorillaImportWrapper {
+  position: relative;
+  padding: 35px 25px;
+  margin: 15px auto;
+  background-color: #fff;
+  max-width: 1100px;
+  border-radius: 5px;
+}
+
+.gorillaImportWrapper table {margin-top: 15px !important;}
+
+.gorillaImportWrapper input.form-control {
+  border: 1px solid #f39c12;
+  border-radius: 5px;
+}
+
+.gorillaImportWrapper select.form-control {
+  border: 1px solid #f39c12;
+  border-radius: 5px;
+  margin: 0px 5px;
+}
+
+.gorillaImportWrapper ul.pagination {
+  margin: 25px auto 0px !important;
+}
+
+.gorillaImportWrapper .dataTables_info {
+  margin: 25px auto 10px;
+}
+
+
+
+
+.gorillaImportWrapper .pagination>.active>a,
+.gorillaImportWrapper .pagination>.active>a:focus,
+.gorillaImportWrapper .pagination>.active>a:hover,
+.gorillaImportWrapper .pagination>.active>span,
+.gorillaImportWrapper .pagination>.active>span:focus,
+.gorillaImportWrapper .pagination>.active>span:hover {
+  background-color: #f39c12;
+  border-color: #f39c12;
+}
+
+
+
+
+
+.gorillaProduct {}
+
+.gorillaProduct table {}
+
+.gorillaProduct table 
+ th {
+    font-size: 12px;
+    line-height: 14px !important;
+    vertical-align: middle !important;
+}
+
+.gorillaProduct table td {
+    font-size: 12px;
+    vertical-align: middle !important;
+}
+
+.gorillaProduct table tr {
+}
+
+.gorillaProduct table.dataTable thead th:after {
+    top: calc(50% - 8px) !important;
+}
+
+.gorillaProduct table td a.btn {
+    margin: 3px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.gorillaProduct table td a.btn:last-child {
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+
+
+
+
+
+
+
+
+.singleProduct {
+  position: relative;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 25px;
+}
+
+.vat-cards {
+  position: relative;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 25px 15px;
+  max-width: calc(100% - 30px);
+}
+
+
+
+.langCard {
+  position: relative;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 25px auto;
+}
+
+.singleProduct table tr {}
+
+.singleProduct table tr td {
+  border: 1px solid #f39c12;
+  text-transform: capitalize;
+  vertical-align: middle !important;
+}
+
+
+.langCard .card-body {
+  max-width: 260px;
+  border: 1px solid #f39c12;
+  padding: 25px;
+  border-radius: 5px;
+  margin: 25px 0px 0px;
+  padding-bottom: 0px;
+}
+
+
+
+
+.editVat-card {
+  position: relative;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.editVat-card .card-body form {
+  max-width: 420px;
+}
+
+.editVat-card .card-body form .form-group {
+  margin: 15px auto 20px;
+}
+
+.editVat-card h3.card-title {
+  margin-bottom: 30px;
+}
+
+.editVat-card .card-body form .form-group .form-control {
+  border-radius: 5px;
+}
+
+
+
+.translationEdit {
+  position: relative;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.translationEdit h3.card-title {
+  margin-bottom: 30px;
+}
+
+.translationEdit table.table {}
+
+.translationEdit table.table tr td {
+  border: 1px solid #f39c12;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+
+.translationEdit .card-body {
+  min-height: 450px;
+  margin-left: -15px;
+}
+
+
+
+
+
+
+
+
+
+
+div#gorillaProductEditModal {}
+
+div#gorillaProductEditModal .modal-content {
+    border-radius: 5px;
+}
+
+div#gorillaProductEditModal .modal-content button.close {
+    position: relative;
+    top: -20px;
+    color: #f10;
+    font-size: 25px;
+    z-index: 1;
+    opacity: 1;
+}
+
+div#gorillaProductEditModal .modal-content h5#gorillaProductEditModalLabel {
+    font-size: 20px;
+    line-height: 25px;
+}
+
+div#gorillaProductEditModal .modal-content input {
+    border-radius: 5px;
+    border-color: #b1b1b1;
+}
