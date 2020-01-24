@@ -54,7 +54,7 @@ class CrudboosterInstallationCommand extends Command
 
             $this->info('Publishing CRUDBooster needs file...');
             $this->call('vendor:publish', ['--provider' => 'crocodicstudio\crudbooster\CRUDBoosterServiceProvider']);
-            $this->call('vendor:publish', ['--provider' => 'Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider']);
+            $this->call('vendor:publish', ['--provider' => 'UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider']);
             $this->call('vendor:publish', ['--tag' => 'cb_migration', '--force' => true]);
             $this->call('vendor:publish', ['--tag' => 'cb_localization', '--force' => true]);
 
@@ -84,7 +84,7 @@ class CrudboosterInstallationCommand extends Command
             }
             $this->call('db:seed', ['--class' => 'CBSeeder']);
             $this->call('config:clear');
-            if (app()->version() < 5.6) {
+            if (app()->version() < 7) {
                 $this->call('optimize');
             }
 
@@ -100,12 +100,12 @@ class CrudboosterInstallationCommand extends Command
     private function header()
     {
         $this->info("
-#     __________  __  ______  ____                   __           
+#     __________  __  ______  ____                   __
 #    / ____/ __ \/ / / / __ \/ __ )____  ____  _____/ /____  _____
 #   / /   / /_/ / / / / / / / __  / __ \/ __ \/ ___/ __/ _ \/ ___/
-#  / /___/ _, _/ /_/ / /_/ / /_/ / /_/ / /_/ (__  ) /_/  __/ /    
-#  \____/_/ |_|\____/_____/_____/\____/\____/____/\__/\___/_/     
-#                                                                                                                       
+#  / /___/ _, _/ /_/ / /_/ / /_/ / /_/ / /_/ (__  ) /_/  __/ /
+#  \____/_/ |_|\____/_____/_____/\____/\____/____/\__/\___/_/
+#
 			");
         $this->info('--------- :===: Thanks for choosing CRUDBooster :==: ---------------');
         $this->info('====================================================================');
@@ -117,10 +117,10 @@ class CrudboosterInstallationCommand extends Command
         $system_failed = 0;
         $laravel = app();
 
-        if ($laravel::VERSION >= 5.3) {
-            $this->info('Laravel Version (>= 5.3.*): [Good]');
+        if ($laravel::VERSION >= 5.6) {
+            $this->info('Laravel Version (>= 5.8.*): [Good]');
         } else {
-            $this->info('Laravel Version (>= 5.3.*): [Bad]');
+            $this->info('Laravel Version (>= 5.6.*): [Bad]');
             $system_failed++;
         }
 
@@ -197,9 +197,7 @@ class CrudboosterInstallationCommand extends Command
     private function footer($success = true)
     {
         $this->info('--');
-        $this->info('Homepage : http://www.crudbooster.com');
-        $this->info('Github : https://github.com/crocodic-studio/crudbooster');
-        $this->info('Documentation : https://github.com/crocodic-studio/crudbooster/blob/master/docs/en/index.md');
+        $this->info('Github : https://github.com/PHPCD4/drmcrudbooster');
         $this->info('====================================================================');
         if ($success == true) {
             $this->info('------------------- :===: Completed !! :===: ------------------------');
