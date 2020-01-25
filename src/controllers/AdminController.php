@@ -13,7 +13,7 @@ class AdminController extends CBController
         $data = [];
         $data['page_title'] = '<strong>Dashboard</strong>';
        // https://drm.software/admin/gorilla_products
-        return redirect('https://drm.software/admin/drm_products');
+        //return redirect('https://drm.software/admin/drm_products');
         return view('crudbooster::home', $data);
     }
 
