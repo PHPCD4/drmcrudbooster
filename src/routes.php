@@ -14,7 +14,7 @@ Route::group(['middleware' => ['api', '\crocodicstudio\crudbooster\middlewares\C
 
         if (substr($names, 0, 4) == 'api_') {
             $names = str_replace('api_', '', $names);
-            Route::any('api/'.$names, $v.'@execute_api');
+            Route::any('api/' . $names, $v . '@execute_api');
         }
     }
 });
@@ -24,6 +24,15 @@ Route::group(['middleware' => ['web'], 'namespace' => $namespace], function () {
     Route::get('api-documentation', ['uses' => 'ApiCustomController@apiDocumentation', 'as' => 'apiDocumentation']);
     Route::get('download-documentation-postman', ['uses' => 'ApiCustomController@getDownloadPostman', 'as' => 'downloadDocumentationPostman']);
     Route::get('uploads/{one?}/{two?}/{three?}/{four?}/{five?}', ['uses' => 'FileController@getPreview', 'as' => 'fileControllerPreview']);
+
+    Route::get('admin/dashboard/search', 'AdminController@search');
+    Route::get('admin/search', 'AdminController@getFind');
+
+    Route::get('admin/dashboard/searchAll', 'AdminController@searchAll');
+    Route::get('admin/search/all', 'AdminController@getFindAll');
+
+    Route::get('admin/target-values', 'AdminController@getTargetValues');
+    Route::post('admin/save-target-values', 'AdminController@postSaveTargetValues');
 });
 
 /* ROUTER FOR WEB */
@@ -38,6 +47,9 @@ Route::group(['middleware' => ['web'], 'prefix' => config('crudbooster.ADMIN_PAT
     Route::get('logout', ['uses' => 'AdminController@getLogout', 'as' => 'getLogout']);
     Route::post('login', ['uses' => 'AdminController@postLogin', 'as' => 'postLogin']);
     Route::get('login', ['uses' => 'AdminController@getLogin', 'as' => 'getLogin']);
+    Route::get('markAsRead', 'NotificationsController@markAsRead')->name('markAsRead');
+    Route::get('clearNotifications', 'NotificationsController@clearNotifications')->name('clearNotifications');
+    Route::get('totalNotification', 'NotificationsController@totalNotification')->name('totalNotification');
 });
 
 // ROUTER FOR OWN CONTROLLER FROM CB
@@ -54,7 +66,7 @@ Route::group([
                 Route::get('/', '\crocodicstudio\crudbooster\controllers\StatisticBuilderController@getDashboard');
             } elseif ($menus->type == 'Module') {
                 $module = CRUDBooster::first('cms_moduls', ['path' => $menus->path]);
-                Route::get('/', $module->controller.'@getIndex');
+                Route::get('/', $module->controller . '@getIndex');
             } elseif ($menus->type == 'Route') {
                 $action = str_replace("Controller", "Controller@", $menus->path);
                 $action = str_replace(['Get', 'Post'], ['get', 'post'], $action);
@@ -73,9 +85,7 @@ Route::group([
         foreach ($moduls as $v) {
             CRUDBooster::routeController($v->path, $v->controller);
         }
-    } catch (Exception $e) {
-
-    }
+    } catch (Exception $e) { }
 });
 
 /* ROUTER FOR BACKEND CRUDBOOSTER */
@@ -88,7 +98,7 @@ Route::group([
     /* DO NOT EDIT THESE BELLOW LINES */
     if (Request::is(config('crudbooster.ADMIN_PATH'))) {
         $menus = DB::table('cms_menus')->where('is_dashboard', 1)->first();
-        if (! $menus) {
+        if (!$menus) {
             CRUDBooster::routeController('/', 'AdminController', $namespace = '\crocodicstudio\crudbooster\controllers');
         }
     }
@@ -97,7 +107,7 @@ Route::group([
 
     try {
 
-        $master_controller = glob(__DIR__.'/controllers/*.php');
+        $master_controller = glob(__DIR__ . '/controllers/*.php');
         foreach ($master_controller as &$m) {
             $m = str_replace('.php', '', basename($m));
         }
@@ -109,7 +119,5 @@ Route::group([
                 CRUDBooster::routeController($v->path, $v->controller, $namespace = '\crocodicstudio\crudbooster\controllers');
             }
         }
-    } catch (Exception $e) {
-
-    }
+    } catch (Exception $e) { }
 });
