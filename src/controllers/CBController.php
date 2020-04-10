@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Schema;
+use Illuminate\Support\Str;
 
 class CBController extends Controller
 {
@@ -356,7 +357,7 @@ class CBController extends Controller
                 }
             } else {
 
-                if(isset($field_array[1])) {                    
+                if(isset($field_array[1])) {
                     $result->addselect($table.'.'.$field.' as '.$table.'_'.$field);
                     $columns_table[$index]['type_data'] = CRUDBooster::getFieldType($table, $field);
                     $columns_table[$index]['field'] = $table.'_'.$field;
@@ -367,7 +368,7 @@ class CBController extends Controller
                     $columns_table[$index]['field'] = $field;
                     $columns_table[$index]['field_raw'] = $field;
                 }
-                
+
                 $columns_table[$index]['field_with'] = $table.'.'.$field;
             }
         }
@@ -567,7 +568,7 @@ class CBController extends Controller
 
                 if ($col['str_limit']) {
                     $value = trim(strip_tags($value));
-                    $value = str_limit($value, $col['str_limit']);
+                    $value = Str::limit($value, $col['str_limit']);
                 }
 
                 if ($col['nl2br']) {
@@ -902,7 +903,7 @@ class CBController extends Controller
             }
 
             if ($di['type'] == 'child') {
-                $slug_name = str_slug($di['label'], '');
+                $slug_name = Str::slug($di['label'], '');
                 foreach ($di['columns'] as $child_col) {
                     if (isset($child_col['validation'])) {
                         //https://laracasts.com/discuss/channels/general-discussion/array-validation-is-not-working/
@@ -1202,7 +1203,7 @@ class CBController extends Controller
             }
 
             if ($ro['type'] == 'child') {
-                $name = str_slug($ro['label'], '');
+                $name = Str::slug($ro['label'], '');
                 $columns = $ro['columns'];
                 $getColName = Request::get($name.'-'.$columns[0]['name']);
                 $count_input_data = ($getColName)?(count($getColName) - 1):0;
@@ -1340,7 +1341,7 @@ class CBController extends Controller
             }
 
             if ($ro['type'] == 'child') {
-                $name = str_slug($ro['label'], '');
+                $name = Str::slug($ro['label'], '');
                 $columns = $ro['columns'];
                 $getColName = Request::get($name.'-'.$columns[0]['name']);
                 $count_input_data = ($getColName)?(count($getColName) - 1):0;
@@ -1460,9 +1461,9 @@ class CBController extends Controller
             $file = storage_path('app/'.$file);
             $rows = Excel::load($file, function ($reader) {
             })->get();
-            
+
             $countRows = ($rows)?count($rows):0;
-            
+
             Session::put('total_data_import', $countRows);
 
             $data_import_column = [];
@@ -1635,7 +1636,7 @@ class CBController extends Controller
             Storage::makeDirectory($filePath);
 
             //Move file to storage
-            $filename = md5(str_random(5)).'.'.$ext;
+            $filename = md5(Str::random(5)).'.'.$ext;
             $url_filename = '';
             if (Storage::putFileAs($filePath, $file, $filename)) {
                 $url_filename = $filePath.'/'.$filename;
