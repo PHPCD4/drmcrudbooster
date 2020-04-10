@@ -70,7 +70,7 @@ class ModulsController extends CBController
  				$('#table_name').change(function() {
 					var v = $(this).val();
 					$('#path').val(v);
-				})	
+				})
  			})
  			";
 
@@ -258,46 +258,6 @@ class ModulsController extends CBController
         return view("crudbooster::module_generator.step1", compact("tables_list", "fontawesome", "row", "id"));
     }
 
-    public function getStep2($id)
-    {
-        $this->cbLoader();
-
-        $module = CRUDBooster::getCurrentModule();
-
-        if (! CRUDBooster::isView() && $this->global_privilege == false) {
-            CRUDBooster::insertLog(trans('crudbooster.log_try_view', ['module' => $module->name]));
-            CRUDBooster::redirect(CRUDBooster::adminPath(), trans('crudbooster.denied_access'));
-        }
-
-        $row = DB::table('cms_moduls')->where('id', $id)->first();
-
-        $columns = CRUDBooster::getTableColumns($row->table_name);
-
-        $tables = CRUDBooster::listTables();
-        $table_list = [];
-        foreach ($tables as $tab) {
-            foreach ($tab as $key => $value) {
-                $label = $value;
-                $table_list[] = $value;
-            }
-        }
-
-        if (file_exists(app_path('Http/Controllers/'.str_replace('.', '', $row->controller).'.php'))) {
-            $response = file_get_contents(app_path('Http/Controllers/'.$row->controller.'.php'));
-            $column_datas = extract_unit($response, "# START COLUMNS DO NOT REMOVE THIS LINE", "# END COLUMNS DO NOT REMOVE THIS LINE");
-            $column_datas = str_replace('$this->', '$cb_', $column_datas);
-            eval($column_datas);
-        }
-
-        $data = [];
-        $data['id'] = $id;
-        $data['columns'] = $columns;
-        $data['table_list'] = $table_list;
-        $data['cb_col'] = $cb_col;
-
-        return view('crudbooster::module_generator.step2', $data);
-    }
-
     public function postStep2()
     {
         $this->cbLoader();
@@ -361,7 +321,7 @@ class ModulsController extends CBController
             $roles = DB::table('cms_privileges_roles')->where('id_cms_privileges', CRUDBooster::myPrivilegeId())->join('cms_moduls', 'cms_moduls.id', '=', 'id_cms_moduls')->select('cms_moduls.name', 'cms_moduls.path', 'is_visible', 'is_create', 'is_read', 'is_edit', 'is_delete')->get();
             Session::put('admin_privileges_roles', $roles);
 
-            return redirect(Route("ModulsControllerGetStep2", ["id" => $id]));
+            return redirect(Route("ModulsControllerGetStep2", $id));
         } else {
             $id = Request::get('id');
             DB::table($this->table)->where('id', $id)->update(compact("name", "table_name", "icon", "path"));
@@ -378,8 +338,48 @@ class ModulsController extends CBController
                 // return redirect()->back()->with(['message'=>'Sorry, is not possible to edit the module with Module Generator Tool. Prefix and or Suffix tag is missing !','message_type'=>'warning']);
             }
 
-            return redirect(Route("ModulsControllerGetStep2", ["id" => $id]));
+            return redirect(Route("ModulsControllerGetStep2", $id));
         }
+    }
+
+    public function getStep2($id)
+    {
+        $this->cbLoader();
+
+        $module = CRUDBooster::getCurrentModule();
+
+        if (!CRUDBooster::isView() && $this->global_privilege == false) {
+            CRUDBooster::insertLog(trans('crudbooster.log_try_view', ['module' => $module->name]));
+            CRUDBooster::redirect(CRUDBooster::adminPath(), trans('crudbooster.denied_access'));
+        }
+
+        $row = DB::table('cms_moduls')->where('id', $id)->first();
+
+        $columns = CRUDBooster::getTableColumns($row->table_name);
+
+        $tables = CRUDBooster::listTables();
+        $table_list = [];
+        foreach ($tables as $tab) {
+            foreach ($tab as $key => $value) {
+                $label = $value;
+                $table_list[] = $value;
+            }
+        }
+
+        if (file_exists(app_path('Http/Controllers/' . str_replace('.', '', $row->controller) . '.php'))) {
+            $response = file_get_contents(app_path('Http/Controllers/' . $row->controller . '.php'));
+            $column_datas = extract_unit($response, "# START COLUMNS DO NOT REMOVE THIS LINE", "# END COLUMNS DO NOT REMOVE THIS LINE");
+            $column_datas = str_replace('$this->', '$cb_', $column_datas);
+            eval($column_datas);
+        }
+
+        $data = [];
+        $data['id'] = $id;
+        $data['columns'] = $columns;
+        $data['table_list'] = $table_list;
+        $data['cb_col'] = $cb_col;
+
+        return view('crudbooster::module_generator.step2', $data);
     }
 
     public function postStep3()
@@ -455,7 +455,7 @@ class ModulsController extends CBController
 
         file_put_contents(app_path('Http/Controllers/'.$row->controller.'.php'), $file_controller);
 
-        return redirect(Route("ModulsControllerGetStep3", ["id" => $id]));
+        return redirect(Route("ModulsControllerGetStep3", $id));
     }
 
     public function getStep3($id)
@@ -481,7 +481,7 @@ class ModulsController extends CBController
         }
 
         $types = [];
-        foreach (glob(base_path('vendor/crocodicstudio/crudbooster/src/views/default/type_components').'/*', GLOB_ONLYDIR) as $dir) {
+        foreach (glob(base_path('vendor/shojol/drmcrudbooster/src/views/default/type_components').'/*', GLOB_ONLYDIR) as $dir) {
             $types[] = basename($dir);
         }
 
@@ -491,7 +491,7 @@ class ModulsController extends CBController
     public function getTypeInfo($type = 'text')
     {
         header("Content-Type: application/json");
-        echo file_get_contents(base_path('vendor/crocodicstudio/crudbooster/src/views/default/type_components/'.$type.'/info.json'));
+        echo file_get_contents(base_path('vendor/shojol/drmcrudbooster/src/views/default/type_components/'.$type.'/info.json'));
     }
 
     public function postStep4()
@@ -581,7 +581,7 @@ class ModulsController extends CBController
         //CREATE FILE CONTROLLER
         file_put_contents(app_path('Http/Controllers/'.$row->controller.'.php'), $file_controller);
 
-        return redirect(Route("ModulsControllerGetStep4", ["id" => $id]));
+        return redirect(Route("ModulsControllerGetStep4", $id));
     }
 
     public function getStep4($id)
