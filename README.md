@@ -1,4 +1,4 @@
-<p align="center">:rocket: <strong>CRUDBOOSTER<sup>v6</sup></strong>:new: will be available soon, stay tuned :revolving_hearts: :rocket:</p>
+<p align="center">:rocket: <strong>DRMCRUDBOOSTER</strong> :rocket:</p>
 <hr>
 
 > Laravel CRUD Generator, Make a Web Application Just In Minutes, Even With Less Code and fewer Steps !
