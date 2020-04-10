@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Excel;
 use Illuminate\Support\Facades\PDF;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SettingsController extends CBController
 {
@@ -52,10 +53,10 @@ class SettingsController extends CBController
 			function show_radio_data() {
 				var cit = $('#content_input_type').val();
 				if(cit == 'radio' || cit == 'select') {
-					$('#form-group-dataenum').show();	
+					$('#form-group-dataenum').show();
 				}else{
 					$('#form-group-dataenum').hide();
-				}					
+				}
 			}
 			$('#content_input_type').change(show_radio_data);
 			show_radio_data();
@@ -127,7 +128,7 @@ class SettingsController extends CBController
                 Storage::makeDirectory($directory);
 
                 //Move file to storage
-                $filename = md5(str_random(5)).'.'.$ext;
+                $filename = md5(Str::random(5)).'.'.$ext;
                 $storeFile = Storage::putFileAs($directory, $file, $filename);
                 if ($storeFile) {
                     $content = $directory.'/'.$filename;
@@ -144,7 +145,7 @@ class SettingsController extends CBController
 
     function hook_before_add(&$arr)
     {
-        $arr['name'] = str_slug($arr['label'], '_');
+        $arr['name'] = Str::slug($arr['label'], '_');
         $this->return_url = CRUDBooster::mainpath("show")."?group=".$arr['group_setting'];
     }
 
