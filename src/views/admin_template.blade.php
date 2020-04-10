@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+<head><meta charset="euc-jp">
+
     <title>{{ ($page_title)?Session::get('appname').': '.strip_tags($page_title):"Admin Area" }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name='generator' content='CRUDBooster 5.4.6'/>
@@ -84,6 +84,18 @@
         .form-group > label:first-child {
             display: block
         }
+        .btn-orange{
+            background-color: #f39c12;
+            color: #fff;
+            box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .2), 0 1px 8px 0 rgba(0, 0, 0, .12) !important;
+            transition: .5s;
+        }
+        .btn-orange:hover {
+            background: #e89716;
+            border: 1px solid #F39C12;
+            color: #fff;
+            transition: .5s;
+        }
     </style>
 
     @stack('head')
@@ -99,14 +111,183 @@
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-<section class="content-header">
+
+    @php
+        if(request()->is('admin/drm_orders')){
+            $iframe_url_invoice_settings = 'https://player.vimeo.com/video/390617120';
+            $iframe_urlorder_Import  = 'https://player.vimeo.com/video/390614240';
+            $iframe_url_products_resend = 'https://player.vimeo.com/video/391580558';
+        }elseif(request()->is('admin/fallback_calculation')){
+            $iframe_url = 'https://player.vimeo.com/video/390614907';
+            $action_add_data_title = 'Add new calculation';
+        }elseif(request()->is('admin/price_category')){
+            $iframe_url = 'https://player.vimeo.com/video/391566017';
+        }elseif(request()->is('admin/common/produkte-importieren')){
+            $iframe_url = 'https://player.vimeo.com/video/391571545';
+            $page_title = 'Artikel hinzufügen';
+        }elseif(request()->is('admin/drm_imports/import')){
+            $import_new_product = 'https://player.vimeo.com/video/391571545';
+            $product_sync = 'https://player.vimeo.com/video/393321002';
+        }
+    @endphp
+
+    
+    <div class="row">
+        <div class="col-md-5">
+            
+            @if ($iframe_url_invoice_settings)
+            <div >
+                <div class="play-button" id="play_buttoniframeSuplieVideoModal" style="position: relative;padding-top: 5px;text-align: right;margin-right: 7.5em;left: 0;" >
+                    <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal"
+                        data-target="#iframeSuplieVideoModalInvoice"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                        Play</button>
+                    <!-- Modal -->
+                    <div class="modal fade iframeSuplieVideoModal" id="iframeSuplieVideoModalInvoice" tabindex="-1"
+                        role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true" onclick="suplieStopVideo()">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="supliefocusvideoInvoice" src="{{ $iframe_url_invoice_settings }}" width="640"
+                                        height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        
+        <div class="col-md-4">
+            @if ($iframe_urlorder_Import)
+                <div style="height: 0">
+                    <div style="position: relative;padding-top: 0px;text-align: right;margin-right: 20em;left: 0;top: 5px;">
+                        <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal"
+                            data-target="#iframeSuplieVideoModalImport"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                            Play</button>
+                        <!-- Modal -->
+                        <div class="modal fade iframeSuplieVideoModal" id="iframeSuplieVideoModalImport" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"
+                                                onclick="suplieStopVideo()">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe id="supliefocusvideoImport" src="{{ $iframe_urlorder_Import }}" width="640" height="360"
+                                            frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        
+        <div class="col-md-3">
+            @if ($iframe_url_products_resend)
+            <div style="height: 0">
+                <div style="position: relative;padding-top: 0px;text-align: right;margin-right: 1em;left: 0;top: 5px;">
+                    <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal"
+                        data-target="#iframeSuplieVideoModalproducts_resend"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                        Products and Resend</button>
+                    <!-- Modal -->
+                    <div class="modal fade iframeSuplieVideoModal" id="iframeSuplieVideoModalproducts_resend" tabindex="-1"
+                        role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true" onclick="suplieStopVideo()">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="supliefocusvideoproducts_resend" src="{{ $iframe_url_products_resend }}" width="640"
+                                        height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+
+<div class="btn-content" style="position: absolute;content: ''; width: 85%;margin-top: 13px;z-index: 99;">
+    <div class="row">
+        <div class="col-md-6">
+            @if ($import_new_product)
+                <div class="pull-right">
+                    <div class="play-button" id="play_buttoniframeSuplieVideoModal" style="position: relative;padding-top: 0px;text-align: right;left: 0;" >
+                        <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal"
+                            data-target="#iframeImportNewProduct"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                            Import New Product</button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade iframeSuplieVideoModal" id="iframeImportNewProduct" tabindex="-1"
+                        role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true" onclick="suplieStopVideo()">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="" src="{{ $import_new_product }}" width="640"
+                                        height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+        </div>
+        <div class="col-md-6">
+            @if ($product_sync)
+            <div class="pull-left" style="height: 0">
+                <div style="position: relative;padding-top: 0px;text-align: right;left: 0;">
+                    <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal"
+                        data-target="#iframeProduct_sync"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                        product Sync</button>
+                    <!-- Modal -->
+                    <div class="modal fade iframeSuplieVideoModal" id="iframeProduct_sync" tabindex="-1"
+                        role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true" onclick="suplieStopVideo()">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="" src="{{ $product_sync }}" width="640"
+                                        height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>   
+    </div>
+</div>
+
+
+
+    <section class="content-header">
 
             <?php
             $module = CRUDBooster::getCurrentModule();
             ?>
             @if($module)
                 <h1>
-                    <i class='{{$module->icon}}'></i> {{($page_title)?:$module->name}} &nbsp;&nbsp;
+                    <i class='{{($page_icon)?:$module->icon}}'></i> {{($page_title)?:$module->name}} &nbsp;&nbsp;
 
                     <!--START BUTTON -->
 
@@ -120,8 +301,8 @@
 
                         @if($button_add && CRUDBooster::isCreate())
                             <a href="{{ CRUDBooster::mainpath('add').'?return_url='.urlencode(Request::fullUrl()).'&parent_id='.g('parent_id').'&parent_field='.$parent_field }}"
-                               id='btn_add_new_data' class="btn btn-sm btn-success" title="{{trans('crudbooster.action_add_data')}}">
-                                <i class="fa fa-plus-circle"></i> {{trans('crudbooster.action_add_data')}}
+                               id='btn_add_new_data' class="btn btn-sm btn-orange" title="{{trans('crudbooster.action_add_data') }}">
+                                <i class="fa fa-plus-circle"></i> {{ ($action_add_data_title)?:trans('crudbooster.action_add_data') }}
                             </a>
                         @endif
                     @endif
@@ -145,7 +326,7 @@
                     @if(!empty($index_button))
 
                         @foreach($index_button as $ib)
-                            <a href='{{$ib["url"]}}' id='{{Illuminate\Support\Str::slug($ib["label"])}}' class='btn {{($ib['color'])?'btn-'.$ib['color']:'btn-primary'}} btn-sm'
+                            <a href='{{$ib["url"]}}' id='{{str_slug($ib["label"])}}' class='btn {{($ib['color'])?'btn-'.$ib['color']:'btn-primary'}} btn-sm'
                                @if($ib['onClick']) onClick='return {{$ib["onClick"]}}' @endif
                                @if($ib['onMouseOver']) onMouseOver='return {{$ib["onMouseOver"]}}' @endif
                                @if($ib['onMouseOut']) onMouseOut='return {{$ib["onMouseOut"]}}' @endif
@@ -159,14 +340,62 @@
                 <!-- END BUTTON -->
                 </h1>
 
+                <style>
+                    .iframeSuplieVideoModal .modal-content {
+                        position: relative;
+                        background: none;
+                        outline: 0;
+                        box-shadow: none;
+                    }
+                    .iframeSuplieVideoModal .modal-header {
+                        border-bottom-color: none !important;
+                        border: none !important;
+                    }
+                    .iframeSuplieVideoModal .close span {
+                        position: absolute;
+                        top: 46px;
+                        right: -100px;
+                        border: 1px solid #fff;
+                        padding: 5px 10px;
+                        color: #fff !important;
+                        z-index: 999;
+                    }
+                    div#play_buttoniframeSuplieVideoModal {
+                        position: absolute;
+                        content: '';
+                        top: 38%;
+                        left: 30%;
+                    }
+                </style>
+
+
+                @if ($iframe_url)
+                <div class="play-button" id="play_buttoniframeSuplieVideoModal" style="{{ request()->is('admin/fallback_calculation') ? 'margin-left: 6em;':'' }}">
+                    <button class="btn pb-btn" style="margin: 0;background: orange;color: #fff;" data-toggle="modal" data-target="#iframeSuplieVideoModal{{ $table }}"><i class="fa fa-play-circle" aria-hidden="true"></i>
+                    Play</button>
+                    <!-- Modal -->
+                    <div class="modal fade iframeSuplieVideoModal" id="iframeSuplieVideoModal{{ $table }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" onclick="suplieStopVideo()">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            <iframe id="supliefocusvideo{{ $table }}" src="{{ $iframe_url }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                @endif
 
                 <ol class="breadcrumb">
                     <li><a href="{{CRUDBooster::adminPath()}}"><i class="fa fa-dashboard"></i> {{ trans('crudbooster.home') }}</a></li>
                     <li class="active">{{$module->name}}</li>
                 </ol>
             @else
-                <h1>{{Session::get('appname')}}
-                    <small>Information</small>
+                <h1>{{ ($page_title) ? $page_title : Session::get('appname') }}
+                    <!--<small>Information</small>-->
                 </h1>
             @endif
         </section>
@@ -218,6 +447,26 @@
     @if($script_js)
         {!! $script_js !!}
     @endif
+</script>
+
+<script>
+    // ...... stop modal video function
+    function suplieStopVideo() {
+        var $frame = $('iframe#supliefocusvideo{{ $table }}');
+
+        // saves the current iframe source
+        var vidsrc = $frame.attr('src');
+
+        // sets the source to nothing, stopping the video
+        $frame.attr('src', '');
+
+        // sets it back to the correct link so that it reloads immediately on the next window open
+        $frame.attr('src', vidsrc);
+    }
+
+    $('#iframeSuplieVideoModal{{ $table }}').on('hidden.bs.modal', function(e) {
+        suplieStopVideo();
+    })
 </script>
 
 @stack('bottom')
