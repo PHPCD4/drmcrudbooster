@@ -424,7 +424,7 @@
                                     <li style="background-color: #d8f3ff;margin-bottom: 2px;">
                                         <a href="{{$n_url}}">
                                             <i class="fa fa-envelope-o text-aqua"></i>
-                                            {{ str_limit($notification->data['data'], 70) }}
+                                            {{ Illuminate\Support\Str::limit($notification->data['data'], 70) }}
                                         </a>
                                     </li>
                                     @else
